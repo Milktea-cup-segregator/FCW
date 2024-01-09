@@ -1,0 +1,74 @@
+// 软件源更新
+sudo apt-get update 
+
+// 升级本地所有安装包，版本过高反而需要降级才能安装
+sudo apt-get upgrade
+
+// 升级树莓派固件
+sudo rpi-update
+
+// 安装build-essential、cmake、git和pkg-config
+sudo apt-get install build-essential cmake git pkg-config 
+
+// 安装jpeg格式图像工具包
+sudo apt-get install libjpeg8-dev 
+
+// 安装tif格式图像工具包
+sudo apt-get install libtiff5-dev 
+
+// 安装JPEG-2000图像工具包
+sudo apt-get install libjasper-dev 
+
+// 安装png图像工具包
+sudo apt-get install libpng12-dev
+
+//安装视频I/O包
+sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
+
+//安装gtk2.0（树莓派很可能下载错误，更换中科大或者清华源即可） 
+sudo apt-get install libgtk2.0-dev
+
+//优化函数包
+sudo apt-get install libatlas-base-dev gfortran
+
+// 下载OpenCV
+wget -O opencv-3.4.3.zip https://github.com/Itseez/opencv/archive/3.4.3.zip
+
+// 解压OpenCV
+unzip opencv-3.4.3.zip
+
+// 下载OpenCV_contrib库：
+wget -O opencv_contrib-3.4.3.zip https://github.com/Itseez/opencv_contrib/archive/3.4.3.zip
+
+// 解压OpenCV_contrib库：
+unzip opencv_contrib-3.4.3.zip
+
+// 打开源码文件夹，这里以3.4.3为例
+cd opencv-3.4.3
+
+// 新建release文件夹
+mkdir release
+
+// 进入release文件夹
+cd release
+
+//* CMAKE_BUILD_TYPE是编译方式
+* CMAKE_INSTALL_PREFIX是安装目录
+* OPENCV_EXTRA_MODULES_PATH是加载额外模块
+* INSTALL_PYTHON_EXAMPLES是安装官方python例程
+* BUILD_EXAMPLES是编译例程  **/
+
+sudo cmake -D CMAKE_BUILD_TYPE=RELEASE \
+	-D CMAKE_INSTALL_PREFIX=/usr/local \
+    -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib-3.4.3/modules \
+    -D INSTALL_PYTHON_EXAMPLES=ON \
+    -D BUILD_EXAMPLES=ON ..
+    
+//编译
+sudo make
+
+// 安装
+sudo make install
+
+// 更新动态链接库
+sudo ldconfig
